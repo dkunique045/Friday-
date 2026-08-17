@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FRIDAY — Voice Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hud">
+    <div class="hud-corner tl"></div>
+    <div class="hud-corner tr"></div>
+    <div class="hud-corner bl"></div>
+    <div class="hud-corner br"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">F</span>
+        <span class="brand-name">FRIDAY</span>
+      </div>
+      <div class="status-chip" id="statusChip">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">STANDBY</span>
+      </div>
+    </header>
+
+    <main class="stage">
+      <div class="orb-wrap">
+        <canvas id="orb" width="360" height="360"></canvas>
+        <button id="micBtn" class="mic-btn" aria-label="Toggle listening">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </button>
+      </div>
+      <p class="hint" id="hint">Tap the mic and speak to FRIDAY</p>
+    </main>
+
+    <section class="transcript" id="transcript" aria-live="polite"></section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

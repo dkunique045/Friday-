@@ -1,0 +1,179 @@
+:root {
+  --bg: #0a0e17;
+  --panel: #0f1520;
+  --line: #1c2836;
+  --cyan: #4ce0e0;
+  --cyan-dim: #2a7a7a;
+  --amber: #e0a94c;
+  --text: #e8edf2;
+  --text-muted: #6b7a8f;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow: hidden;
+}
+
+.hud {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* corner HUD brackets */
+.hud-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--cyan-dim);
+  opacity: 0.7;
+}
+.hud-corner.tl { top: 16px; left: 16px; border-top: 2px solid; border-left: 2px solid; }
+.hud-corner.tr { top: 16px; right: 16px; border-top: 2px solid; border-right: 2px solid; }
+.hud-corner.bl { bottom: 16px; left: 16px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-corner.br { bottom: 16px; right: 16px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand-mark {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--bg);
+  background: var(--cyan);
+  width: 24px; height: 24px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 4px;
+}
+.brand-name {
+  font-family: var(--mono);
+  letter-spacing: 0.28em;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.status-chip {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text-muted);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.dot.listening { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulse 1.2s infinite; }
+.dot.speaking { background: var(--amber); box-shadow: 0 0 8px var(--amber); animation: pulse 1.2s infinite; }
+.dot.thinking { background: var(--cyan); animation: blink 0.6s infinite; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  z-index: 2;
+}
+
+.orb-wrap {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#orb { position: absolute; inset: 0; }
+
+.mic-btn {
+  position: relative;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan-dim);
+  background: rgba(76, 224, 224, 0.06);
+  color: var(--cyan);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.mic-btn:hover { background: rgba(76, 224, 224, 0.14); }
+.mic-btn.active {
+  background: var(--cyan);
+  color: var(--bg);
+  box-shadow: 0 0 24px rgba(76, 224, 224, 0.5);
+}
+
+.hint {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  min-height: 16px;
+}
+
+.transcript {
+  z-index: 2;
+  max-width: 620px;
+  width: 100%;
+  margin: 0 auto;
+  max-height: 30vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.line {
+  font-size: 13.5px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  animation: fadein 0.3s ease;
+}
+.line.user { color: var(--text); background: var(--panel); align-self: flex-end; }
+.line.friday { color: var(--cyan); background: transparent; border-color: var(--cyan-dim); }
+.line .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 3px;
+}
+
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 480px) {
+  .orb-wrap { width: 280px; height: 280px; }
+  .brand-name { display: none; }
+}
